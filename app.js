@@ -41,7 +41,7 @@ function processCommand(msg) {
     if (commandPing.includes(command))
         msg.channel.send(':ping_pong: Pong!')
     if (commandCommands.includes(command))
-        msg.channel.send('```!info\n!commands\n!ping\n!whodiesnext\n!sanity\n!askcthulhu [question]```')
+        msg.channel.send('```!info\n!commands\n!ping\n!whodiesnext\n!sanity\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
     if (commandInfo.includes(command))
         msg.channel.send('I am a bot created by <@177545650966233090>. Although he is my creator, there is only one true Great Old One I serve. :octopus:')   
     if (commandWhoDiesNext.includes(command))
@@ -51,7 +51,7 @@ function processCommand(msg) {
     if (commandAskCthulhu.includes(command))
         msg.channel.send(askCthulhu(args))
     if (commandRoll.includes(command))
-        rollDices(msg, args)
+        rollDice(msg, args)
 }
 
 function whoDiesNext() {
@@ -85,7 +85,7 @@ function askCthulhu(question) {
     return answer;
 }
 
-function rollDices(msg, args)
+function rollDice(msg, args)
 {
     if (!args[0])
         args[0] = '1d20'
@@ -95,14 +95,14 @@ function rollDices(msg, args)
     }
     let numbers = args[0].split('d')
     if (numbers[0] > 1000 || numbers[1] > 1000) {
-        msg.channel.send('I can only roll up to 1000 dices/sides at the same time.')
+        msg.channel.send('I can only roll up to 1000 dice/sides at the same time.')
         return;
     }
     let rollResults = [];
     if (!numbers[1]) {msg.channel.send('Please specify the amount if sides the dice should have.'); return;}
     if (numbers[1] < 1 || isNaN(numbers[1])) {msg.channel.send('That is not a valid dice side.'); return;}
     if (numbers[0] > 1)
-        msg.channel.send('Rolling a total of ' + numbers[0] + ' dices, with ' + numbers[1] + ' sides:')
+        msg.channel.send('Rolling a total of ' + numbers[0] + ' dice, with ' + numbers[1] + ' sides:')
     else {
         msg.channel.send('Rolling 1 dice, with ' + numbers[1] + ' sides:')
         numbers[0] = '1'
