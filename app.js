@@ -16,6 +16,7 @@ const commandInfo = ['info', 'help', '?']
 const commandWhoDiesNext = ['whodiesnext', 'wdn', 'whodies']
 const commandSanity = ['sanity', 'san', 's']
 const commandAskCthulhu = ['askcthulhu', 'askc', 'ac']
+const commandRoll = ['roll', 'rolldice', 'r', 'rd']
 
 client.on('message', (msg) => {
     // Prevent the bot from responding to itself
@@ -30,7 +31,7 @@ function processCommand(msg) {
     // Splitting up the command and its arguments
     let fullCommand = msg.content.substr(1)
     let splitCommand = fullCommand.split(' ')
-    let command = splitCommand[0]
+    let command = splitCommand[0].toLowerCase();
     let args = splitCommand.slice(1)
 
     // Logging the given commands and its arguments
