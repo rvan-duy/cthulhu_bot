@@ -40,7 +40,7 @@ function processCommand(msg) {
     console.log('Arguments: ' + args)
 
     if (commandPing.includes(command))
-        msg.channel.send(':ping_pong: Pong!')
+        checkPing(msg);
     if (commandCommands.includes(command))
         msg.channel.send('```!info\n!commands\n!ping\n!avatar [username]\n!whodiesnext\n!sanity\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
     if (commandInfo.includes(command))
@@ -54,6 +54,10 @@ function processCommand(msg) {
     if (commandRoll.includes(command))
         rollDice(msg, args);
 };
+
+function checkPing(msg) {
+    msg.channel.send(`🏓 Pong! ${Date.now() - msg.createdTimestamp}ms.`);
+}
 
 function sendInfo(msg) {
     msg.channel.send("I am a bot created by <@177545650966233090>. Although he is my creator, there is only one true Great Old One I serve. :octopus:\nMy source code can be found on: <https://github.com/rvan-duy/cthulhu_bot>");
