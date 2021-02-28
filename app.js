@@ -101,31 +101,32 @@ function rollDice(msg, args)
         args[0] = "1d20";
 
     // If there is no "d" in args, we cannot roll
-    if (!args[0].includes('d')) {
-        msg.channel.send(`Please make sure there is a 'd' character in your command.`)
+    if (!args[0].includes("d")) {
+        msg.channel.send("Please make sure there is a 'd' character in your command.")
         return;
     }
 
     // Splitting args inbetween what comes before the "d" and after
-    let numbers = args[0].split('d')
+    let numbers = args[0].split("d")
     if (numbers[0] > 400 || numbers[1] > 400) {
         msg.channel.send('I can only roll up to 400 dice/sides at the same time.')
         return;
     }
+
+    // Checking if dice side is valid
+    if (!numbers[1]) { msg.channel.send('Please specify the amount if sides the dice should have.'); return; }
+    if (numbers[1] < 1 || isNaN(numbers[1])) { msg.channel.send('That is not a valid dice side.'); return; }
     
+    // Announcing what we are rolling
+    if (numbers[0] > 1) msg.channel.send('Rolling a total of ' + numbers[0] + ' dice, with ' + numbers[1] + ' sides:');
+    else { msg.channel.send('Rolling 1 dice, with ' + numbers[1] + ' sides:'); numbers[0] = '1'; }
+
+    // Generating the rolls and storing them into rollResults
     let rollResults = [];
-    if (!numbers[1]) {msg.channel.send('Please specify the amount if sides the dice should have.'); return;}
-    if (numbers[1] < 1 || isNaN(numbers[1])) {msg.channel.send('That is not a valid dice side.'); return;}
-    if (numbers[0] > 1)
-        msg.channel.send('Rolling a total of ' + numbers[0] + ' dice, with ' + numbers[1] + ' sides:')
-    else {
-        msg.channel.send('Rolling 1 dice, with ' + numbers[1] + ' sides:')
-        numbers[0] = '1'
-    }
     if (numbers[0] > 0) {
         for (let i = 0; i < numbers[0]; i++) {
-            rollResults.push(' ' + Math.floor(Math.random() * numbers[1] + 1))
+            rollResults.push(' ' + Math.floor(Math.random() * numbers[1] + 1));
         }
-        msg.channel.send(rollResults.toString())
+        msg.channel.send(rollResults.toString());
     }
 };
