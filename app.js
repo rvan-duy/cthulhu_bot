@@ -96,17 +96,23 @@ function askCthulhu(msg, args) {
 
 function rollDice(msg, args)
 {
+    // If there are no args - default 1d20
     if (!args[0])
-        args[0] = '1d20'
+        args[0] = "1d20";
+
+    // If there is no "d" in args, we cannot roll
     if (!args[0].includes('d')) {
         msg.channel.send(`Please make sure there is a 'd' character in your command.`)
         return;
     }
+
+    // Splitting args inbetween what comes before the "d" and after
     let numbers = args[0].split('d')
-    if (numbers[0] > 1000 || numbers[1] > 1000) {
-        msg.channel.send('I can only roll up to 1000 dice/sides at the same time.')
+    if (numbers[0] > 400 || numbers[1] > 400) {
+        msg.channel.send('I can only roll up to 400 dice/sides at the same time.')
         return;
     }
+    
     let rollResults = [];
     if (!numbers[1]) {msg.channel.send('Please specify the amount if sides the dice should have.'); return;}
     if (numbers[1] < 1 || isNaN(numbers[1])) {msg.channel.send('That is not a valid dice side.'); return;}
