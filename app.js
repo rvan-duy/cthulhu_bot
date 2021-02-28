@@ -14,6 +14,7 @@ client.on("ready", () => {
 const commandPing = ["ping", "p", "pin"];
 const commandCommands = ["commands", "command", "com", "c"];
 const commandInfo = ["info", "help", "?"];
+const commandGif = ["gif", "gifs", "gi", "g"];
 const commandWhoDiesNext = ["whodiesnext", "wdn", "whodies"];
 const commandSanity = ["sanity", "san", "s"];
 const commandAskCthulhu = ["askcthulhu", "askc", "ac"];
@@ -42,9 +43,11 @@ function processCommand(msg) {
     if (commandPing.includes(command))
         checkPing(msg);
     if (commandCommands.includes(command))
-        msg.channel.send('```!info\n!commands\n!ping\n!avatar [username]\n!whodiesnext\n!sanity\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
+        msg.channel.send('```!info\n!commands\n!ping\n!gif\n!whodiesnext\n!sanity\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
     if (commandInfo.includes(command))
         sendInfo(msg);
+    if (commandGif.includes(command))
+        randomGif(msg);
     if (commandWhoDiesNext.includes(command))
         msg.channel.send(`He told me the next one to die is going to be **` + whoDiesNext() + `**..`);
     if (commandSanity.includes(command))
@@ -63,6 +66,39 @@ function sendInfo(msg) {
     msg.channel.send("I am a bot created by <@177545650966233090>. Although he is my creator, there is only one true Great Old One I serve. :octopus:\nMy source code can be found on: <https://github.com/rvan-duy/cthulhu_bot>");
     msg.channel.send("https://thumbs.gfycat.com/SlimClutteredLeafhopper-size_restricted.gif");
 };
+
+function randomGif(msg) {
+    let gifs = [
+        "https://thumbs.gfycat.com/SlimClutteredLeafhopper-size_restricted.gif",
+        "https://i.pinimg.com/originals/b8/55/55/b855551565f421ddd3da7ef5d2af59ea.gif",
+        "https://giphy.com/gifs/deathwishcoffee-cthulhu-monster-scary-dZcMs4BOvrlKe7mTZ3",
+        "https://giphy.com/gifs/made-by-abvh-dobrosav-bob-ivkovi-cthulhu-XF6yv5hA9NDO0",
+        "https://media.tenor.com/images/4e2dd23908e77bf837049ea16e50e4d1/tenor.gif",
+        "https://i.pinimg.com/originals/cf/58/c9/cf58c957d5b0ea8680cb78830f97695e.gif",
+        "https://thumbs.gfycat.com/DaringSmoothGazelle-size_restricted.gif",
+        "https://i.imgur.com/AnY9C.gif",
+        "http://pa1.narvii.com/6902/8f20408a0b284a7ece7c66feb2eecf156cba670dr1-461-326_00.gif",
+        "https://i.imgur.com/VkiDqa9.gif",
+        "https://i.pinimg.com/originals/bd/7e/dd/bd7eddb482a23c361ba54a93e6e27be9.gif",
+        "https://media1.tenor.com/images/3ebff28824839674873a61d27e88ee63/tenor.gif?itemid=17660276",
+        "https://giphy.com/gifs/monster-cthulhu-seamonster-3oz8xvCmysN1VEZQZO",
+        "https://img1.picmix.com/output/pic/normal/2/0/7/5/8745702_db1c4.gif",
+        "https://i.imgur.com/hvI6jex.gif",
+        "https://giphy.com/gifs/hp-lovecraft-photoshop-phriday-vastarien-10W2007N7EQsbC",
+        "https://cdn140.picsart.com/263745167020202.gif?to=min&r=640",
+        "https://i.gifer.com/8Qll.gif",
+        "https://cdnb.artstation.com/p/assets/images/images/016/803/815/original/ruben-lara-dribbble-cthulhu.gif?1553539593",
+        "https://i.imgur.com/4xwr7QU.gif?1",
+        "https://i.pinimg.com/originals/6d/f1/59/6df159948bc9c0061ad2a7a0086d065b.gif",
+        "https://i.imgur.com/yHwhL.gif",
+        "https://i.imgur.com/ZxbhjES.gif",
+        "https://giphy.com/gifs/sci-fi-science-fiction-literature-1bnecJczhD5gk",
+        "https://media1.tenor.com/images/bf95b2ab780741eff0c0fe90e9adda13/tenor.gif?itemid=5869159",
+        "https://i.pinimg.com/originals/65/05/d0/6505d08868d5a2e7e7619f1cf330adb1.gif",
+    ];
+    let gif = gifs[Math.floor(Math.random() * gifs.length)];
+    msg.channel.send(gif);
+}
 
 function whoDiesNext() {
     let characters = ['Lorenz Braun', 'Rado McCain', 'Alberto Heijns', 'Zoubbi Loubbi'];
