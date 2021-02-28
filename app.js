@@ -42,7 +42,7 @@ function processCommand(msg) {
     if (commandPing.includes(command))
         msg.channel.send(':ping_pong: Pong!')
     if (commandCommands.includes(command))
-        msg.channel.send('```!info\n!commands\n!ping\n!whodiesnext\n!sanity\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
+        msg.channel.send('```!info\n!commands\n!ping\n!avatar [username]\n!whodiesnext\n!sanity\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
     if (commandInfo.includes(command))
         sendInfo(msg);
     if (commandWhoDiesNext.includes(command))
