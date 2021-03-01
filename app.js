@@ -6,6 +6,8 @@ require("dotenv").config();
 const client = new Discord.Client();
 client.login(process.env.BOT_TOKEN);
 
+const ytdl = require("ytdl-core");
+
 client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag}`);
 });
@@ -19,6 +21,10 @@ const commandWhoDiesNext = ["whodiesnext", "wdn", "whodies"];
 const commandSanity = ["sanity", "san", "s"];
 const commandAskCthulhu = ["askcthulhu", "askc", "ac"];
 const commandRoll = ["roll", "rolldice", "r", "rd"];
+const command1920Music = ["1920music", "1920m", "1m"];
+const commandHorrorMusic = ["horrormusic", "hmusic", "hm"];
+const commandStop = ["stop"];
+const commandTigers = ["tiger", "tigers", "t"];
 
 client.on("message", (msg) => {
     // Prevent the bot from responding to itself
@@ -31,10 +37,10 @@ client.on("message", (msg) => {
 
 function processCommand(msg) {
     // Splitting up the command and its arguments
-    let fullCommand = msg.content.substr(1)
-    let splitCommand = fullCommand.split(' ')
+    let fullCommand = msg.content.substr(1);
+    let splitCommand = fullCommand.split(' ');
     let command = splitCommand[0].toLowerCase();
-    let args = splitCommand.slice(1)
+    let args = splitCommand.slice(1);
 
     // Logging the given commands and its arguments
     console.log('Command received: ' + command)
@@ -43,7 +49,7 @@ function processCommand(msg) {
     if (commandPing.includes(command))
         checkPing(msg);
     if (commandCommands.includes(command))
-        msg.channel.send('```!info\n!commands\n!ping\n!gif\n!whodiesnext\n!sanity\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
+        msg.channel.send('```!info\n!commands\n!ping\n!gif\n!whodiesnext\n!sanity\n!1920Music\n!tigers\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
     if (commandInfo.includes(command))
         sendInfo(msg);
     if (commandGif.includes(command))
@@ -56,11 +62,52 @@ function processCommand(msg) {
         askCthulhu(msg, args);
     if (commandRoll.includes(command))
         rollDice(msg, args);
+    if (commandStop.includes(command))
+        leaveVoice(msg);
 };
+
+client.on('message', async msg => {
+    // Splitting up the command and its arguments
+    let fullCommand = msg.content.substr(1);
+    let splitCommand = fullCommand.split(' ');
+    let command = splitCommand[0].toLowerCase();
+    let args = splitCommand.slice(1);
+
+    // Voice only works in guilds, if the message does not come from a guild, we ignore it
+    if (!msg.guild) return;
+    if (command1920Music.includes(command)) {
+      // Only try to join the sender's voice channel if they are in one themselves
+      if (msg.member.voice.channel) {
+        const connection = await msg.member.voice.channel.join();
+        msg.channel.send(`Starting a party in **${msg.member.voice.channel}**\nLets swing baby! :musical_note:`);
+        const dispatcher = connection.play("./music/1920Music_" + Math.floor(Math.random() * 14) + ".mp3");
+        dispatcher.on("finish", () => {
+            console.log("Finished playing 1920Music, disconnecting..");
+            dispatcher.destroy();
+            msg.guild.me.voice.channel.leave();
+        })
+      }
+      else { msg.reply('you need to be in a voice channel for me to join.'); }
+    };
+    if (commandTigers.includes(command)) {
+        // Only try to join the sender's voice channel if they are in one themselves
+        if (msg.member.voice.channel) {
+          const connection = await msg.member.voice.channel.join();
+          msg.channel.send(`:tiger: Tigers, tigers, tigers in **${msg.member.voice.channel}** are you with me? :tiger2:`);
+          const dispatcher = connection.play("./music/tigers_1.weba");
+          dispatcher.on("finish", () => {
+              console.log("Finished playing Tigers, disconnecting..");
+              dispatcher.destroy();
+              msg.guild.me.voice.channel.leave();
+          })
+        }
+        else { msg.reply('you need to be in a voice channel for me to join.'); }
+    }
+});
 
 function checkPing(msg) {
     msg.channel.send(`🏓 Pong! ${Date.now() - msg.createdTimestamp}ms.`);
-}
+};
 
 function sendInfo(msg) {
     msg.channel.send("I am a bot created by <@177545650966233090>. Although he is my creator, there is only one true Great Old One I serve. :octopus:\nMy source code can be found on: <https://github.com/rvan-duy/cthulhu_bot>");
@@ -98,7 +145,8 @@ function randomGif(msg) {
     ];
     let gif = gifs[Math.floor(Math.random() * gifs.length)];
     msg.channel.send(gif);
-}
+    console.log("Gifs count: " + gifs.length);
+};
 
 function whoDiesNext() {
     let characters = ['Lorenz Braun', 'Rado McCain', 'Alberto Heijns', 'Zoubbi Loubbi'];
@@ -134,8 +182,7 @@ function askCthulhu(msg, args) {
     }
 };
 
-function rollDice(msg, args)
-{
+function rollDice(msg, args) {
     // If there are no args - default 1d20
     if (!args[0])
         args[0] = "1d20";
@@ -168,5 +215,12 @@ function rollDice(msg, args)
             rollResults.push(' ' + Math.floor(Math.random() * numbers[1] + 1));
         }
         msg.channel.send(rollResults.toString());
+    }
+};
+
+function leaveVoice(msg) {
+    if (msg.guild.me.voice.channel) {
+        msg.guild.me.voice.channel.leave();
+        msg.channel.send(`The party is over I am leaving **${msg.member.voice.channel}**.`);
     }
 };
