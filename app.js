@@ -103,14 +103,14 @@ function processCommand(msg) {
 };
 
 client.on('message', async msg => {
+    if (!msg.guild || !msg.content.startsWith("!")) return;
+
     // Splitting up the command and its arguments
     let fullCommand = msg.content.substr(1);
     let splitCommand = fullCommand.split(' ');
     let command = splitCommand[0].toLowerCase();
     let args = splitCommand.slice(1);
 
-    // Voice only works in guilds, if the message does not come from a guild, we ignore it
-    if (!msg.guild) return;
     if (command1920Music.includes(command)) {
         // Only try to join the sender's voice channel if they are in one themselves
         if (msg.member.voice.channel) {
