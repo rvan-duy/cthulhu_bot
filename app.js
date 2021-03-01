@@ -7,6 +7,7 @@ const client = new Discord.Client();
 client.login(process.env.BOT_TOKEN);
 
 const ytdl = require("ytdl-core");
+const fs = require("fs");
 
 client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag}`);
@@ -25,6 +26,7 @@ const command1920Music = ["1920music", "1920m", "1m"];
 const commandHorrorMusic = ["horrormusic", "hmusic", "hm"];
 const commandStop = ["stop"];
 const commandTigers = ["tiger", "tigers", "t"];
+const commandRules = ["rules"];
 
 const oldMusic = [
     "https://www.youtube.com/watch?v=jtepWkaakhk",
@@ -96,6 +98,8 @@ function processCommand(msg) {
         rollDice(msg, args);
     if (commandStop.includes(command))
         leaveVoice(msg);
+    if (commandRules.includes(command))
+        sendRules(msg, args);
 };
 
 client.on('message', async msg => {
@@ -265,5 +269,16 @@ function leaveVoice(msg) {
     if (msg.guild.me.voice.channel) {
         msg.guild.me.voice.channel.leave();
         msg.channel.send(`The party is over I am leaving **${msg.member.voice.channel}**.`);
+    }
+};
+
+function sendRules(msg, args) {
+    let rules = ["character-backstory", "character-creation", "character", "chase", "combat-damage", "combat-firearms",
+                "combat-maneuver", "combat", "dice", "improvement", "sanity", "spells", "tome", "vehicles"];
+    if (rules.includes(args[0])) {
+        let text = fs.readFileSync("./rules/" + args[0] + ".txt", "utf8");
+        msg.channel.send(text);
+    } else {
+        msg.channel.send("That is not one of the rules, try one of the following:\n```- character\n- character-backstory\n- character-creation\n- chase\n- combat\n- combat-damage\n- combat-firearms\n- combat-maneuver\n- dice\n- improvement\n- sanity\n- spells\n- tome\n- vehicles```");
     }
 };
