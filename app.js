@@ -15,7 +15,7 @@ client.on("ready", () => {
 });
 
 // The commands and their aliases
-const commandPing = ["ping", "p", "pin"];
+const commandPing = ["ping", "pin", "p"];
 const commandCommands = ["commands", "command", "com", "c"];
 const commandInfo = ["info", "help", "?"];
 const commandGif = ["gif", "gifs", "gi", "g"];
@@ -31,6 +31,7 @@ const commandRules = ["rules"];
 const commandDHole = ["dhole", "dh"];
 const commandQuote = ["quote", "quo", "q"];
 const commandRandom = ["random"];
+const commandAlias = ["alias"];
 
 const oldMusic = [
     "https://www.youtube.com/watch?v=jtepWkaakhk",
@@ -90,7 +91,7 @@ function processCommand(msg) {
     if (commandPing.includes(command))
         checkPing(msg);
     if (commandCommands.includes(command))
-        msg.channel.send('```!info\n!commands\n!ping\n!gif\n!quote\n!rules [game-rule]\n!whodiesnext\n!sanity\n!1920music\n!horrormusic\n!tigers\n!dhole\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
+        msg.channel.send('```!info\n!commands\n!ping\n!alias [command name]\n!gif\n!quote\n!rules [game rule]\n!whodiesnext\n!sanity\n!1920music\n!horrormusic\n!tigers\n!dhole\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]\n!random [number]```')
     if (commandInfo.includes(command))
         sendInfo(msg);
     if (commandGif.includes(command))
@@ -111,6 +112,8 @@ function processCommand(msg) {
         sendDHole(msg);
     if (commandQuote.includes(command))
         randomQuote(msg);
+    if (commandAlias.includes(command))
+        sendAlias(msg, args);
 };
 
 client.on('message', async msg => {
@@ -174,7 +177,7 @@ client.on('message', async msg => {
                     dispatcher.destroy();
                     msg.guild.me.voice.channel.leave();
                 })
-            }
+            } else { msg.reply("which random voice message do you want? I have **" + fs.readdirSync("./random").length + "**. Type !random [number].") }
         } else { msg.reply('you need to be in a voice channel for me to join.'); }
     };
 });
@@ -329,4 +332,41 @@ function checkEmojiReactions(msg) {
         msg.react("🐙");
         console.log("Reacting to cthulhu with :octopus:");
     }
+};
+
+function sendAlias(msg, args) {
+    // I heard you liked if-statements
+    args[0] = args[0].toLowerCase();
+    if (commandPing.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandPing);
+    else if (commandCommands.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandCommands);
+    else if (commandInfo.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandInfo);
+    else if (commandGif.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandGif);
+    else if (commandWhoDiesNext.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandWhoDiesNext);
+    else if (commandSanity.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandSanity);
+    else if (commandAskCthulhu.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandAskCthulhu);
+    else if (commandRoll.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandRoll);
+    else if (command1920Music.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + command1920Music);
+    else if (commandHorrorMusic.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandHorrorMusic);
+    else if (commandStop.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandStop);
+    else if (commandTigers.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandTigers);
+    else if (commandRules.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandRules);
+    else if (commandDHole.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandDHole);
+    else if (commandQuote.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandQuote);
+    else
+        msg.channel.send("That is not a valid command. Use !alias [command name].");
 };
