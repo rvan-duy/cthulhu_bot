@@ -69,7 +69,10 @@ client.on("message", (msg) => {
 
     // Check if a command is being posted
     if (msg.content.startsWith("!"))
-        processCommand(msg)
+        processCommand(msg);
+    
+    // Check if the bot can troll someone with emoji reactions
+    checkEmojiReactions(msg);
 });
 
 function processCommand(msg) {
@@ -298,4 +301,15 @@ function randomQuote(msg) {
     let len = fs.readdirSync("./quotes").length;
     let quote = fs.readFileSync("./quotes/quote_" + Math.floor(Math.random() * len + 1) + ".txt", "utf8");
     msg.channel.send(quote);
+};
+
+function checkEmojiReactions(msg) {
+    if (msg.content.toLowerCase().includes("lelde")) {
+        msg.react("😍");
+        console.log("Reacting to lelde with :heart_eyes:");
+    }
+    if (msg.content.toLowerCase().includes("cthulhu")) {
+        msg.react("🐙");
+        console.log("Reacting to cthulhu with :octopus:");
+    }
 };
