@@ -1,0 +1,3 @@
+*If it's green, and it's moving toward you, shoot it.*
+
+- Cthulhu Bot
