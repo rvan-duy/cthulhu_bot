@@ -83,7 +83,7 @@ function processCommand(msg) {
     if (commandPing.includes(command))
         checkPing(msg);
     if (commandCommands.includes(command))
-        msg.channel.send('```!info\n!commands\n!ping\n!gif\n!whodiesnext\n!sanity\n!1920music\n!horrormusic\n!tigers\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
+        msg.channel.send('```!info\n!commands\n!ping\n!gif\n!rules [game-rule]\n!whodiesnext\n!sanity\n!1920music\n!horrormusic\n!tigers\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
     if (commandInfo.includes(command))
         sendInfo(msg);
     if (commandGif.includes(command))
