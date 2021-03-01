@@ -25,13 +25,13 @@ const commandAskCthulhu = ["askcthulhu", "askc", "ac"];
 const commandRoll = ["roll", "rolldice", "r", "rd"];
 const command1920Music = ["1920music", "1920m", "1m"];
 const commandHorrorMusic = ["horrormusic", "hmusic", "hm"];
-const commandStop = ["stop"];
+const commandStop = ["stop", "st"];
 const commandTigers = ["tiger", "tigers", "t"];
 const commandRules = ["rules"];
 const commandDHole = ["dhole", "dh"];
 const commandQuote = ["quote", "quo", "q"];
-const commandRandom = ["random"];
-const commandAlias = ["alias"];
+const commandRandom = ["random", "ran", "lol"];
+const commandAlias = ["alias", "ali", "a"];
 
 const oldMusic = [
     "https://www.youtube.com/watch?v=jtepWkaakhk",
@@ -367,6 +367,10 @@ function sendAlias(msg, args) {
         msg.channel.send("Aliases for that command are:\n" + commandDHole);
     else if (commandQuote.includes(args[0]))
         msg.channel.send("Aliases for that command are:\n" + commandQuote);
+    else if (commandRandom.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandRandom);
+    else if (commandAlias.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandAlias);
     else
         msg.channel.send("That is not a valid command. Use !alias [command name].");
 };
