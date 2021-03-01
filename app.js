@@ -30,6 +30,7 @@ const commandTigers = ["tiger", "tigers", "t"];
 const commandRules = ["rules"];
 const commandDHole = ["dhole", "dh"];
 const commandQuote = ["quote", "quo", "q"];
+const commandRandom = ["random"];
 
 const oldMusic = [
     "https://www.youtube.com/watch?v=jtepWkaakhk",
@@ -149,17 +150,31 @@ client.on('message', async msg => {
     };
     if (commandHorrorMusic.includes(command)) {
         // Only try to join the sender's voice channel if they are in one themselves
-          if (msg.member.voice.channel) {
-              const connection = await msg.member.voice.channel.join();
-              msg.channel.send(`Spooky times in **${msg.member.voice.channel}**\nAre you spooked yet? :octopus:`);
-              const dispatcher = connection.play(ytdl(horrorMusic[Math.floor(Math.random() * horrorMusic.length)], { filter: "audioonly"}));
-              dispatcher.on("finish", () => {
-                  console.log("Finished playing horrorMusic, disconnecting..");
-                  dispatcher.destroy();
-                  msg.guild.me.voice.channel.leave();
-              })
-          } else { msg.reply('you need to be in a voice channel for me to join.'); }
-      };
+        if (msg.member.voice.channel) {
+            const connection = await msg.member.voice.channel.join();
+            msg.channel.send(`Spooky times in **${msg.member.voice.channel}**\nAre you spooked yet? :octopus:`);
+            const dispatcher = connection.play(ytdl(horrorMusic[Math.floor(Math.random() * horrorMusic.length)], { filter: "audioonly"}));
+            dispatcher.on("finish", () => {
+                console.log("Finished playing horrorMusic, disconnecting..");
+                dispatcher.destroy();
+                msg.guild.me.voice.channel.leave();
+            })
+        } else { msg.reply('you need to be in a voice channel for me to join.'); }
+    };
+    if (commandRandom.includes(command)) {
+        // Only try to join the sender's voice channel if they are in one themselves
+        if (msg.member.voice.channel) {
+            let len = fs.readdirSync("./random").length;
+            const connection = await msg.member.voice.channel.join();
+            msg.channel.send(`**${msg.member.voice.channel}** :smirk:`);
+            const dispatcher = connection.play("./random/random_" + Math.floor(Math.random() * len + 1) +".mp4");
+            dispatcher.on("finish", () => {
+                console.log("Finished playing random, disconnecting..");
+                dispatcher.destroy();
+                msg.guild.me.voice.channel.leave();
+            })
+        } else { msg.reply('you need to be in a voice channel for me to join.'); }
+    };
 });
 
 function checkPing(msg) {
