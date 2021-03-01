@@ -28,6 +28,7 @@ const commandStop = ["stop"];
 const commandTigers = ["tiger", "tigers", "t"];
 const commandRules = ["rules"];
 const commandDHole = ["dhole", "dh"];
+const commandQuote = ["quote", "quo", "q"];
 
 const oldMusic = [
     "https://www.youtube.com/watch?v=jtepWkaakhk",
@@ -84,7 +85,7 @@ function processCommand(msg) {
     if (commandPing.includes(command))
         checkPing(msg);
     if (commandCommands.includes(command))
-        msg.channel.send('```!info\n!commands\n!ping\n!gif\n!rules [game-rule]\n!whodiesnext\n!sanity\n!1920music\n!horrormusic\n!tigers\n!dhole\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
+        msg.channel.send('```!info\n!commands\n!ping\n!gif\n!quote\n!rules [game-rule]\n!whodiesnext\n!sanity\n!1920music\n!horrormusic\n!tigers\n!dhole\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
     if (commandInfo.includes(command))
         sendInfo(msg);
     if (commandGif.includes(command))
@@ -103,6 +104,8 @@ function processCommand(msg) {
         sendRules(msg, args);
     if (commandDHole.includes(command))
         sendDHole(msg);
+    if (commandQuote.includes(command))
+        randomQuote(msg);
 };
 
 client.on('message', async msg => {
@@ -288,4 +291,10 @@ function sendRules(msg, args) {
 
 function sendDHole(msg) {
     msg.channel.send("The Dhole's House is the online toolkit for players and Keepers of the Call of Cthulhu role-playing game.\nLink: https://www.dholeshouse.org");
-}
+};
+
+function randomQuote(msg) {
+    let len = fs.readdirSync("./quotes").length;
+    let quote = fs.readFileSync("./quotes/quote_" + Math.floor(Math.random() * len + 1) + ".txt", "utf8");
+    msg.channel.send(quote);
+};
