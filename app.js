@@ -26,6 +26,38 @@ const commandHorrorMusic = ["horrormusic", "hmusic", "hm"];
 const commandStop = ["stop"];
 const commandTigers = ["tiger", "tigers", "t"];
 
+const oldMusic = [
+    "https://www.youtube.com/watch?v=jtepWkaakhk",
+    "https://www.youtube.com/watch?v=V_5qcSZBvYA",
+    "https://www.youtube.com/watch?v=hGFOk5OoE6Y",
+    "https://www.youtube.com/watch?v=1hY8f20tqlI",
+    "https://www.youtube.com/watch?v=dTz4G9JTUjs",
+    "https://www.youtube.com/watch?v=kRDJ5FnxZHg",
+    "https://www.youtube.com/watch?v=FBn7QPQaVPo",
+    "https://www.youtube.com/watch?v=Ol_ZIiUh6oU",
+    "https://www.youtube.com/watch?v=gTevoUhDeoM",
+    "https://www.youtube.com/watch?v=YYNEJITxi2Y&t",
+    "https://www.youtube.com/watch?v=YBOoQcoPL1I",
+    "https://www.youtube.com/watch?v=eGXeD41s4NM",
+    "https://www.youtube.com/watch?v=9G5BuumJ5xA",
+    "https://www.youtube.com/watch?v=6WzRzNGsR9Q",
+];
+
+const horrorMusic = [
+    "https://www.youtube.com/watch?v=uk69Ofr8kk8",
+    "https://www.youtube.com/watch?v=oxvDnaWe5XE",
+    "https://www.youtube.com/watch?v=qEzWqUhnbVA",
+    "https://www.youtube.com/watch?v=M-MypA7K2Xc",
+    "https://www.youtube.com/watch?v=PTLTt2XGeRg",
+    "https://www.youtube.com/watch?v=hf0n3T_5nTc",
+    "https://www.youtube.com/watch?v=MEHOYYZJO1A",
+    "https://www.youtube.com/watch?v=MfT2B5K5Xy0",
+    "https://www.youtube.com/watch?v=XC3Pdi8K-Cs",
+    "https://www.youtube.com/watch?v=uc-KZSPwzBI",
+    "https://www.youtube.com/watch?v=WUhMLw6vq8g",
+    "https://www.youtube.com/watch?v=Rk3ddLNKAQo",
+];
+
 client.on("message", (msg) => {
     // Prevent the bot from responding to itself
     if (msg.author == client.user) { return }
@@ -49,7 +81,7 @@ function processCommand(msg) {
     if (commandPing.includes(command))
         checkPing(msg);
     if (commandCommands.includes(command))
-        msg.channel.send('```!info\n!commands\n!ping\n!gif\n!whodiesnext\n!sanity\n!1920Music\n!tigers\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
+        msg.channel.send('```!info\n!commands\n!ping\n!gif\n!whodiesnext\n!sanity\n!1920Music\n!horrormusic\n!tigers\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
     if (commandInfo.includes(command))
         sendInfo(msg);
     if (commandGif.includes(command))
@@ -76,33 +108,44 @@ client.on('message', async msg => {
     // Voice only works in guilds, if the message does not come from a guild, we ignore it
     if (!msg.guild) return;
     if (command1920Music.includes(command)) {
-      // Only try to join the sender's voice channel if they are in one themselves
-      if (msg.member.voice.channel) {
-        const connection = await msg.member.voice.channel.join();
-        msg.channel.send(`Starting a party in **${msg.member.voice.channel}**\nLets swing baby! :musical_note:`);
-        const dispatcher = connection.play("./music/1920Music_" + Math.floor(Math.random() * 14) + ".mp3");
-        dispatcher.on("finish", () => {
-            console.log("Finished playing 1920Music, disconnecting..");
-            dispatcher.destroy();
-            msg.guild.me.voice.channel.leave();
-        })
-      }
-      else { msg.reply('you need to be in a voice channel for me to join.'); }
+        // Only try to join the sender's voice channel if they are in one themselves
+        if (msg.member.voice.channel) {
+            const connection = await msg.member.voice.channel.join();
+            msg.channel.send(`Starting a party in **${msg.member.voice.channel}**\nLets swing baby! :musical_note:`);
+            const dispatcher = connection.play(ytdl(oldMusic[Math.floor(Math.random() * oldMusic.length)], { filter: "audioonly"}));
+            dispatcher.on("finish", () => {
+                console.log("Finished playing 1920Music, disconnecting..");
+                dispatcher.destroy();
+                msg.guild.me.voice.channel.leave();
+            })
+        } else { msg.reply('you need to be in a voice channel for me to join.'); }
     };
     if (commandTigers.includes(command)) {
         // Only try to join the sender's voice channel if they are in one themselves
         if (msg.member.voice.channel) {
-          const connection = await msg.member.voice.channel.join();
-          msg.channel.send(`:tiger: Tigers, tigers, tigers in **${msg.member.voice.channel}** are you with me? :tiger2:`);
-          const dispatcher = connection.play("./music/tigers_1.weba");
-          dispatcher.on("finish", () => {
-              console.log("Finished playing Tigers, disconnecting..");
-              dispatcher.destroy();
-              msg.guild.me.voice.channel.leave();
+            const connection = await msg.member.voice.channel.join();
+            msg.channel.send(`:tiger: Tigers, tigers, tigers in **${msg.member.voice.channel}** are you with me? :tiger2:`);
+            const dispatcher = connection.play(ytdl("https://www.youtube.com/watch?v=cvsA-JpFOzo", { filter: "audioonly" }));
+            dispatcher.on("finish", () => {
+                console.log("Finished playing Tigers, disconnecting..");
+                dispatcher.destroy();
+                msg.guild.me.voice.channel.leave();
           })
-        }
-        else { msg.reply('you need to be in a voice channel for me to join.'); }
-    }
+        } else { msg.reply('you need to be in a voice channel for me to join.'); }
+    };
+    if (commandHorrorMusic.includes(command)) {
+        // Only try to join the sender's voice channel if they are in one themselves
+          if (msg.member.voice.channel) {
+              const connection = await msg.member.voice.channel.join();
+              msg.channel.send(`Spooky times in **${msg.member.voice.channel}**\nAre you spooked yet? :octopus:`);
+              const dispatcher = connection.play(ytdl(horrorMusic[Math.floor(Math.random() * horrorMusic.length)], { filter: "audioonly"}));
+              dispatcher.on("finish", () => {
+                  console.log("Finished playing horrorMusic, disconnecting..");
+                  dispatcher.destroy();
+                  msg.guild.me.voice.channel.leave();
+              })
+          } else { msg.reply('you need to be in a voice channel for me to join.'); }
+      };
 });
 
 function checkPing(msg) {
