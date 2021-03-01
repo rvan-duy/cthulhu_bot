@@ -27,6 +27,7 @@ const commandHorrorMusic = ["horrormusic", "hmusic", "hm"];
 const commandStop = ["stop"];
 const commandTigers = ["tiger", "tigers", "t"];
 const commandRules = ["rules"];
+const commandDHole = ["dhole", "dh"];
 
 const oldMusic = [
     "https://www.youtube.com/watch?v=jtepWkaakhk",
@@ -83,7 +84,7 @@ function processCommand(msg) {
     if (commandPing.includes(command))
         checkPing(msg);
     if (commandCommands.includes(command))
-        msg.channel.send('```!info\n!commands\n!ping\n!gif\n!rules [game-rule]\n!whodiesnext\n!sanity\n!1920music\n!horrormusic\n!tigers\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
+        msg.channel.send('```!info\n!commands\n!ping\n!gif\n!rules [game-rule]\n!whodiesnext\n!sanity\n!1920music\n!horrormusic\n!tigers\n!dhole\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]```')
     if (commandInfo.includes(command))
         sendInfo(msg);
     if (commandGif.includes(command))
@@ -100,6 +101,8 @@ function processCommand(msg) {
         leaveVoice(msg);
     if (commandRules.includes(command))
         sendRules(msg, args);
+    if (commandDHole.includes(command))
+        sendDHole(msg);
 };
 
 client.on('message', async msg => {
@@ -282,3 +285,7 @@ function sendRules(msg, args) {
         msg.channel.send("That is not one of the rules, try one of the following:\n```- character\n- character-backstory\n- character-creation\n- chase\n- combat\n- combat-damage\n- combat-firearms\n- combat-maneuver\n- dice\n- improvement\n- sanity\n- spells\n- tome\n- vehicles```");
     }
 };
+
+function sendDHole(msg) {
+    msg.channel.send("The Dhole's House is the online toolkit for players and Keepers of the Call of Cthulhu role-playing game.\nLink: https://www.dholeshouse.org");
+}
