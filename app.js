@@ -11,6 +11,7 @@ const fs = require("fs");
 
 client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag}`);
+    client.user.setActivity("!info");
 });
 
 // The commands and their aliases
@@ -163,7 +164,7 @@ function checkPing(msg) {
 };
 
 function sendInfo(msg) {
-    msg.channel.send("I am a bot created by <@177545650966233090>. Although he is my creator, there is only one true Great Old One I serve. :octopus:\nMy source code can be found on: <https://github.com/rvan-duy/cthulhu_bot>");
+    msg.channel.send("I am a bot created by <@177545650966233090>. Although he is my creator, there is only one true Great Old One I serve. :octopus:\nTo see my commands type !commands\nMy source code can be found on: <https://github.com/rvan-duy/cthulhu_bot>");
     msg.channel.send("https://thumbs.gfycat.com/SlimClutteredLeafhopper-size_restricted.gif");
 };
 
