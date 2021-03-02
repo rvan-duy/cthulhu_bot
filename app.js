@@ -167,7 +167,7 @@ client.on('message', async msg => {
     if (commandRandom.includes(command)) {
         // Only try to join the sender's voice channel if they are in one themselves
         if (msg.member.voice.channel) {
-            if (["1","2","3"].indexOf(args[0]) > -1) {
+            if (["1","2","3","4","5","6"].indexOf(args[0]) > -1) {
                 console.log(args[0]);
                 const connection = await msg.member.voice.channel.join();
                 msg.channel.send(`**${msg.member.voice.channel} ` + args[0] +`** :smirk:`);
