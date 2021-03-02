@@ -170,7 +170,7 @@ client.on('message', async msg => {
             if (["1","2","3","4","5","6"].indexOf(args[0]) > -1) {
                 console.log(args[0]);
                 const connection = await msg.member.voice.channel.join();
-                msg.channel.send(`**${msg.member.voice.channel} ` + args[0] +`** :smirk:`);
+                msg.channel.send(`:confetti_ball: Playing **${args[0]}** for you in **${msg.member.voice.channel}**.`);
                 const dispatcher = connection.play("./random/random_" + args[0] + ".mp4");
                 dispatcher.on("finish", () => {
                     console.log("Finished playing random, disconnecting..");
