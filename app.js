@@ -32,6 +32,10 @@ const commandDHole = ["dhole", "dh"];
 const commandQuote = ["quote", "quo", "q"];
 const commandRandom = ["random", "ran", "lol"];
 const commandAlias = ["alias", "ali", "a"];
+const commandRandomList = ["randomlist", "ranl", "rl"];
+
+// yes..
+const random = ["regelen","voorniels","katje","indiaan","tigers2","oh","markie","tigerskahoot","wasrek","craycray","craycray2","chili","pindakaas","hanno","ohja", "smerig", "prr", "ja"];
 
 const oldMusic = [
     "https://www.youtube.com/watch?v=jtepWkaakhk",
@@ -114,6 +118,8 @@ function processCommand(msg) {
         randomQuote(msg);
     if (commandAlias.includes(command))
         sendAlias(msg, args);
+    if (commandRandomList.includes(command))
+        sendRandomList(msg);
 };
 
 client.on('message', async msg => {
@@ -165,12 +171,10 @@ client.on('message', async msg => {
         } else { msg.reply('you need to be in a voice channel for me to join.'); }
     };
     if (commandRandom.includes(command)) {
-        let random = ["regelen","voorniels","katje","indiaan","tigers2","oh","markie","tigerskahoot","wasrek","craycray","craycray2","chili","pindakaas","hanno","ohja", "smerig", "prr", "ja"];
         // Only try to join the sender's voice channel if they are in one themselves
         if (msg.member.voice.channel) {
             if (random.indexOf(args[0]) > -1) {
                 console.log(args[0]);
-                console.log(random.indexOf(args[0]));
                 const connection = await msg.member.voice.channel.join();
                 msg.channel.send(`:confetti_ball: Playing **${args[0]}** for you in **${msg.member.voice.channel}**.`);
                 const dispatcher = connection.play("./random/random_" + (random.indexOf(args[0])+1) + ".mp4");
@@ -373,6 +377,12 @@ function sendAlias(msg, args) {
         msg.channel.send("Aliases for that command are:\n" + commandRandom);
     else if (commandAlias.includes(args[0]))
         msg.channel.send("Aliases for that command are:\n" + commandAlias);
+    else if (commandRandomList.includes(args[0]))
+        msg.channel.send("Aliases for that command are:\n" + commandRandomList);
     else
         msg.channel.send("That is not a valid command. Use !alias [command name].");
+};
+
+function sendRandomList(msg) {
+    msg.channel.send("List of random audio files:\n" + random);
 };
