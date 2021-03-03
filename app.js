@@ -167,7 +167,7 @@ client.on('message', async msg => {
     if (commandRandom.includes(command)) {
         // Only try to join the sender's voice channel if they are in one themselves
         if (msg.member.voice.channel) {
-            if (["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"].indexOf(args[0]) > -1) {
+            if (["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15", "16"].indexOf(args[0]) > -1) {
                 console.log(args[0]);
                 const connection = await msg.member.voice.channel.join();
                 msg.channel.send(`:confetti_ball: Playing **${args[0]}** for you in **${msg.member.voice.channel}**.`);
