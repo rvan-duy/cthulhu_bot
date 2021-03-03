@@ -165,13 +165,15 @@ client.on('message', async msg => {
         } else { msg.reply('you need to be in a voice channel for me to join.'); }
     };
     if (commandRandom.includes(command)) {
+        let random = ["regelen","voorniels","katje","indiaan","tigers2","oh","markie","tigerskahoot","wasrek","craycray","craycray2","chili","pindakaas","hanno","ohja", "smerig", "prr", "ja"];
         // Only try to join the sender's voice channel if they are in one themselves
         if (msg.member.voice.channel) {
-            if (["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15", "16"].indexOf(args[0]) > -1) {
+            if (random.indexOf(args[0]) > -1) {
                 console.log(args[0]);
+                console.log(random.indexOf(args[0]));
                 const connection = await msg.member.voice.channel.join();
                 msg.channel.send(`:confetti_ball: Playing **${args[0]}** for you in **${msg.member.voice.channel}**.`);
-                const dispatcher = connection.play("./random/random_" + args[0] + ".mp4");
+                const dispatcher = connection.play("./random/random_" + (random.indexOf(args[0])+1) + ".mp4");
                 dispatcher.on("finish", () => {
                     //console.log("Finished playing random, disconnecting..");
                     dispatcher.destroy();
