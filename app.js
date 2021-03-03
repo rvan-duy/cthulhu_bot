@@ -173,9 +173,9 @@ client.on('message', async msg => {
                 msg.channel.send(`:confetti_ball: Playing **${args[0]}** for you in **${msg.member.voice.channel}**.`);
                 const dispatcher = connection.play("./random/random_" + args[0] + ".mp4");
                 dispatcher.on("finish", () => {
-                    console.log("Finished playing random, disconnecting..");
+                    //console.log("Finished playing random, disconnecting..");
                     dispatcher.destroy();
-                    msg.guild.me.voice.channel.leave();
+                    //msg.guild.me.voice.channel.leave();
                 })
             } else { msg.reply("which random voice message do you want? I have **" + fs.readdirSync("./random").length + "**. Type !random [number].") }
         } else { msg.reply('you need to be in a voice channel for me to join.'); }
