@@ -142,7 +142,7 @@ client.on('message', async msg => {
                 dispatcher.destroy();
                 msg.guild.me.voice.channel.leave();
             })
-        } else { msg.reply('you need to be in a voice channel for me to join.'); }
+        } else { msg.reply("you need to be in a voice channel for me to join."); }
     };
     if (commandTigers.includes(command)) {
         // Only try to join the sender's voice channel if they are in one themselves
@@ -188,9 +188,10 @@ client.on('message', async msg => {
                 msg.channel.send(`:confetti_ball: Playing **${random[args[0]]}** for you in **${msg.member.voice.channel}**.`);
                 const dispatcher = connection.play("./random/random_" + (args[0]+1) + ".mp4");
                 dispatcher.on("finish", () => {
-                    //console.log("Finished playing random, disconnecting..");
+                    await sleep(10000);
+                    console.log("Finished playing random, disconnecting..");
                     dispatcher.destroy();
-                    //msg.guild.me.voice.channel.leave();
+                    msg.guild.me.voice.channel.leave();
                 })
             } else { msg.reply("which random voice message do you want? I have **" + fs.readdirSync("./random").length + "**. Type !random [number/name].") }
         } else { msg.reply('you need to be in a voice channel for me to join.'); }
@@ -277,7 +278,7 @@ function askCthulhu(msg, args) {
 function rollDice(msg, args) {
     // If there are no args - default 1d20
     if (!args[0])
-        args[0] = "1d20";
+        args[0] = "1d100";
 
     // If there is no "d" in args, we cannot roll
     if (!args[0].includes("d")) {
