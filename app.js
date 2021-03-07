@@ -174,7 +174,6 @@ client.on('message', async msg => {
         // Only try to join the sender's voice channel if they are in one themselves
         if (msg.member.voice.channel) {
             if (random.indexOf(args[0]) > -1) {
-                console.log(args[0]);
                 const connection = await msg.member.voice.channel.join();
                 msg.channel.send(`:confetti_ball: Playing **${args[0]}** for you in **${msg.member.voice.channel}**.`);
                 const dispatcher = connection.play("./random/random_" + (random.indexOf(args[0])+1) + ".mp4");
@@ -183,7 +182,17 @@ client.on('message', async msg => {
                     dispatcher.destroy();
                     //msg.guild.me.voice.channel.leave();
                 })
-            } else { msg.reply("which random voice message do you want? I have **" + fs.readdirSync("./random").length + "**. Type !random [number].") }
+            } else if (args[0] <= random.length && args[0] > 0) {
+                args[0] = args[0] - 1;
+                const connection = await msg.member.voice.channel.join();
+                msg.channel.send(`:confetti_ball: Playing **${random[args[0]]}** for you in **${msg.member.voice.channel}**.`);
+                const dispatcher = connection.play("./random/random_" + (args[0]+1) + ".mp4");
+                dispatcher.on("finish", () => {
+                    //console.log("Finished playing random, disconnecting..");
+                    dispatcher.destroy();
+                    //msg.guild.me.voice.channel.leave();
+                })
+            } else { msg.reply("which random voice message do you want? I have **" + fs.readdirSync("./random").length + "**. Type !random [number/name].") }
         } else { msg.reply('you need to be in a voice channel for me to join.'); }
     };
 });
