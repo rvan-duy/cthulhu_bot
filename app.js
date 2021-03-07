@@ -178,9 +178,9 @@ client.on('message', async msg => {
                 msg.channel.send(`:confetti_ball: Playing **${args[0]}** for you in **${msg.member.voice.channel}**.`);
                 const dispatcher = connection.play("./random/random_" + (random.indexOf(args[0])+1) + ".mp4");
                 dispatcher.on("finish", () => {
-                    //console.log("Finished playing random, disconnecting..");
+                    console.log("Finished playing random, disconnecting..");
                     dispatcher.destroy();
-                    //msg.guild.me.voice.channel.leave();
+                    msg.guild.me.voice.channel.leave();
                 })
             } else if (args[0] <= random.length && args[0] > 0) {
                 args[0] = args[0] - 1;
@@ -188,7 +188,6 @@ client.on('message', async msg => {
                 msg.channel.send(`:confetti_ball: Playing **${random[args[0]]}** for you in **${msg.member.voice.channel}**.`);
                 const dispatcher = connection.play("./random/random_" + (args[0]+1) + ".mp4");
                 dispatcher.on("finish", () => {
-                    await sleep(10000);
                     console.log("Finished playing random, disconnecting..");
                     dispatcher.destroy();
                     msg.guild.me.voice.channel.leave();
