@@ -95,7 +95,7 @@ function processCommand(msg) {
     if (commandPing.includes(command))
         checkPing(msg);
     if (commandCommands.includes(command))
-        msg.channel.send('```!info\n!commands\n!ping\n!alias [command name]\n!gif\n!quote\n!rules [game rule]\n!whodiesnext\n!sanity\n!1920music\n!horrormusic\n!tigers\n!dhole\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]\n!random [number]```')
+        msg.channel.send('```!info\n!commands\n!ping\n!alias [command name]\n!gif\n!quote\n!rules [game rule]\n!whodiesnext\n!sanity\n!1920music\n!horrormusic\n!tigers\n!dhole\n!askcthulhu [question]\n!roll [amount of dice]d[amount of dice-sides]\n!random [number/name]\n!randomlist```')
     if (commandInfo.includes(command))
         sendInfo(msg);
     if (commandGif.includes(command))
