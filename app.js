@@ -279,9 +279,19 @@ function rollDice(msg, args) {
     if (!args[0])
         args[0] = "1d100";
 
+    // If args is only numbers, roll that amount of sides
+    if (!isNaN(args[0])) {
+        if (args[0] < 1001 && args[0] > 0) {
+            msg.channel.send("Rolling a total of 1 dice, with " + args[0] + " sides:");
+            msg.channel.send(Math.floor(Math.random() * args[0] + 1));
+        }
+        else msg.channel.send("I can only roll up to a 1000 sided dice.")
+        return;
+    }
+
     // If there is no "d" in args, we cannot roll
     if (!args[0].includes("d")) {
-        msg.channel.send("Please make sure there is a 'd' character in your command.")
+        msg.channel.send("I don't understand that, some examples of what I do understand are:\n```!roll 100\n!roll d100\n!roll 8d100```")
         return;
     }
 
