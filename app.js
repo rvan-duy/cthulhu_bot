@@ -33,6 +33,7 @@ const commandQuote = ["quote", "quo", "q"];
 const commandRandom = ["random", "ran", "lol"];
 const commandAlias = ["alias", "ali", "a"];
 const commandRandomList = ["randomlist", "ranl", "rl"];
+const commandDeHaak = ["dehaak", "dh"];
 
 // yes..
 const random = ["regelen","voorniels","katje","indiaan","tigers2","oh","markie","tigerskahoot","wasrek","craycray","craycray2","chili","pindakaas","hanno","ohja", "smerig", "prr", "ja", "mongol", "bellenmetjelle", "jenzie", "lekkermattie", "gerrit", "chanterpanter", "helemaalcraycray", "ja!", "vraagteken", "melkoflimonade", "isdateenja", "kandat", "dehaak"];
@@ -120,6 +121,8 @@ function processCommand(msg) {
         sendAlias(msg, args);
     if (commandRandomList.includes(command))
         sendRandomList(msg);
+    if (commandDeHaak.includes(command))
+        sendDeHaak(msg);
 };
 
 client.on('message', async msg => {
@@ -404,4 +407,8 @@ function sendAlias(msg, args) {
 
 function sendRandomList(msg) {
     msg.channel.send("List of random audio files:\n" + random);
+};
+
+function sendDeHaak(msg) {
+    msg.channel.send(`"De Haak"`, {files: ["dehaak.png"]});
 };
