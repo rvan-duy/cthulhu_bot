@@ -36,7 +36,7 @@ const commandRandomList = ["randomlist", "ranl", "rl"];
 const commandDeHaak = ["dehaak", "dh"];
 
 // yes..
-const random = ["regelen","voorniels","katje","indiaan","tigers2","oh","markie","tigerskahoot","wasrek","craycray","craycray2","chili","pindakaas","hanno","ohja", "smerig", "prr", "ja", "mongol", "bellenmetjelle", "jenzie", "lekkermattie", "gerrit", "chanterpanter", "helemaalcraycray", "ja!", "vraagteken", "melkoflimonade", "isdateenja", "kandat", "dehaak", "appleflap", "ohliebol1", "oliebol2"];
+const random = ["regelen","voorniels","katje","indiaan","tigers2","oh","markie","tigerskahoot","wasrek","craycray","craycray2","chili","pindakaas","hanno","ohja", "smerig", "prr", "ja", "mongol", "bellenmetjelle", "jenzie", "lekkermattie", "gerrit", "chanterpanter", "helemaalcraycray", "ja!", "vraagteken", "melkoflimonade", "isdateenja", "kandat", "dehaak", "appleflap", "ohliebol1", "ohliebol2"];
 
 const oldMusic = [
     "https://www.youtube.com/watch?v=jtepWkaakhk",
