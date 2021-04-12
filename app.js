@@ -285,7 +285,7 @@ function rollDice(msg, args) {
     // If args is only numbers, roll that amount of sides
     if (!isNaN(args[0])) {
         if (args[0] < 1001 && args[0] > 0) {
-            msg.channel.send("Rolling 1 dice, with 1 " + args[0] + " sides:");
+            msg.channel.send("Rolling 1 dice, with " + args[0] + " sides:");
             msg.channel.send(Math.floor(Math.random() * args[0] + 1));
         }
         else msg.channel.send("I can only roll up to a 1000 sided dice.")
