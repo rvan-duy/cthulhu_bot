@@ -244,7 +244,7 @@ function randomGif(msg) {
 };
 
 function whoDiesNext() {
-    let characters = ['Lorenz Braun', 'Rado McCain', 'Alberto Heijns', 'Zoubbi Loubbi'];
+    let characters = ['Jack Mccarthy', 'Rado McCain', 'Alberto Heijns', 'Zoubbi Loubbi', 'Tomas ???'];
     let deadCharacter = characters[Math.floor(Math.random() * characters.length)];
     return deadCharacter;
 };
