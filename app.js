@@ -360,6 +360,10 @@ function checkEmojiReactions(msg) {
         msg.react("🐙");
         console.log("Reacting to cthulhu with :octopus:");
     }
+    if (msg.content.toLowerCase().includes("rado")) {
+        msg.react("🎵");
+        console.log("Reacting to rado with :music_note:");
+    }
 };
 
 function sendAlias(msg, args) {
