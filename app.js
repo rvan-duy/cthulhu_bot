@@ -278,7 +278,7 @@ function askCthulhu(msg, args) {
 };
 
 function rollDice(msg, args) {
-    // If there are no args - default 1d20
+    // If there are no args - default 1d100
     if (!args[0])
         args[0] = "1d100";
 
@@ -315,11 +315,16 @@ function rollDice(msg, args) {
 
     // Generating the rolls and storing them into rollResults
     let rollResults = [];
+    let sum = 0;
+    let number;
     if (numbers[0] > 0) {
         for (let i = 0; i < numbers[0]; i++) {
-            rollResults.push(' ' + Math.floor(Math.random() * numbers[1] + 1));
+            number = Math.floor(Math.random() * numbers[1] + 1)
+            rollResults.push(' ' + number);
+            sum = sum + number;
         }
         msg.channel.send(rollResults.toString());
+        msg.channel.send("Total: " + sum);
     }
 };
 
