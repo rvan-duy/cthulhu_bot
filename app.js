@@ -323,8 +323,10 @@ function rollDice(msg, args) {
             rollResults.push(' ' + number);
             sum = sum + number;
         }
-        msg.channel.send(rollResults.toString());
-        msg.channel.send("Total: " + sum);
+        if (sum != number) {
+            msg.channel.send(rollResults.toString());
+            msg.channel.send("Total: " + sum);
+        }
     }
 };
 
